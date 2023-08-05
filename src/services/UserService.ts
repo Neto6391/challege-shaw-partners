@@ -25,7 +25,6 @@ class UserService {
     }
   }
 
-  // Outros métodos do serviço aqui
 }
 
 export default UserService;

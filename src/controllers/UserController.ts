@@ -25,7 +25,6 @@ class UserController {
     }
   }
 
-  // Outros métodos do controller aqui
 }
 
 export default UserController;

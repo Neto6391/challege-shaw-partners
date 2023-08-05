@@ -11,7 +11,6 @@ describe('UserController', () => {
   });
 
   it('should respond with JSON for /api/users', async () => {
-    // Mock dos dados do usuário retornado pelo serviço
     const mockedUsers: User[] = [
       new User({
         id: 1,
@@ -43,5 +42,4 @@ describe('UserController', () => {
     expect(res.json).toHaveBeenCalledWith(mockedUsers);
   });
 
-  // ... outros testes para os demais métodos do controller
 });

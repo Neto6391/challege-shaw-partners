@@ -10,7 +10,6 @@ describe('UserService', () => {
   });
 
   it('should return all users', async () => {
-    // Mock da resposta da API do GitHub
     const mockedUsers = [
       {
         id: 1,
@@ -51,5 +50,4 @@ describe('UserService', () => {
     expect(users[1].createdAt).toBe(mockedUsers[1].created_at);
   });
 
-  // ... outros testes para os demais métodos do serviço
 });
