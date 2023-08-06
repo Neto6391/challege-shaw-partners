@@ -18,3 +18,8 @@ test for purpose backend of app.shawandpartners.com to show the <strong>diego-sh
 - Please install yarn package;
 - After installed yarn, run this command 'yarn install'
 - Next execute this endpoints on client Insomnia
+
+## Some observations
+Pagination default for since and repos are number 10, more properties:
+page -> actual page
+limit -> is limit to actual page
