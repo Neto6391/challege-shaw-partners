@@ -1,41 +1,25 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
-import userRoutes from './routes/userRoutes';
+import express, { Request, Response, NextFunction } from 'express';
+import UserController from './controllers/UserController';
 
 class App {
-  public app: Application;
+  public app: express.Application;
 
   constructor() {
     this.app = express();
-    this.middlewares();
-    this.routes();
-    this.handleUnknownRoutes();
-    this.handleError();
-  }
+    const userController = new UserController();
 
-  private middlewares() {
-    this.app.use(express.json());
-  }
+    this.app.get('/api/users', userController.getAllUsers.bind(userController));
+    this.app.get('/api/users/:username/details', userController.getUserDetails.bind(userController));
+    this.app.get('/api/users/:username/repos', userController.getUserRepositories.bind(userController));
 
-  private routes() {
-    this.app.use('/api', userRoutes);
-  }
-
-  private handleUnknownRoutes() {
-    this.app.use((_req: Request, res: Response) => {
+    this.app.use((req: Request, res: Response, next: NextFunction) => {
       res.status(404).json({ error: 'Not Found' });
-    });
-  }
-
-  private handleError() {
-    this.app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-      console.error('Error:', err.message);
-      res.status(500).json({ error: 'Internal Server Error' });
     });
   }
 
   public start(port: number) {
     this.app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
+      console.log(`App is listening on port ${port}`);
     });
   }
 }

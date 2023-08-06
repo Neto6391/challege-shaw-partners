@@ -18,5 +18,4 @@ describe('App', () => {
     expect(response.body).toEqual(expect.any(Array));
   });
 
-  // ... outros testes
 });
