@@ -22,9 +22,7 @@ describe('UserService', () => {
       { id: 1, login: 'user1' },
       { id: 2, login: 'user2' },
     ];
-    const expectedUsers = mockedUsersData.map(userData => new User(userData));
 
-    // Mocking the axios.get implementation to return the expected data
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedUsersData });
 
     const users = await userService.getAllUsers(since);
