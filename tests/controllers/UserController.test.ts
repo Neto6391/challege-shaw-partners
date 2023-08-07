@@ -41,24 +41,18 @@ describe('UserController', () => {
         rows: [
           new User({
             id: 1,
-            name: 'John Doe',
-            email: 'john.doe@example.com',
             login: 'johndoe',
             profileUrl: 'https://example.com/johndoe',
-            createdAt: new Date(), // Aqui formatamos para o formato ISO
           }),
         ],
         actual_page: 1,
         total_pages: 1,
       };
   
-      // Mock do método getAllUsers para retornar os usuários simulados
       mockedUserService.getAllUsers.mockResolvedValue(mockedUsers);
   
-      // Simulação da chamada da rota getAllUsers com Request e Response
       await userController.getAllUsers(req as Request, res as Response);
   
-      // Verificações de expectativas do teste
       expect(mockedUserService.getAllUsers).toHaveBeenCalledTimes(1);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(mockedUsersResult);

@@ -3,11 +3,10 @@ import UserController from './controllers/UserController';
 
 class App {
   public app: express.Application;
-  userController!: UserController;
+  userController: UserController = new UserController();
 
   constructor() {
     this.app = express();
-    this.userController = new UserController();
 
     this.app.get('/api/users', this.userController.getAllUsers.bind(this.userController));
     this.app.get('/api/users/:username/details', this.userController.getUserDetails.bind(this.userController));

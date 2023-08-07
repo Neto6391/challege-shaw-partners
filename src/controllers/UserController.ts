@@ -26,8 +26,6 @@ class UserController {
       const endIndex = page * limit;
       users = users.slice(startIndex, endIndex);
   
-      users = users.map(user => user.toResponseObject());
-  
       res.status(200).json({
         rows: users,
         actual_page: page,

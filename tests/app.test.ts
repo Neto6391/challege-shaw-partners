@@ -21,22 +21,13 @@ describe('App', () => {
       const mockedUsers = [
         {
           id: 1,
-          name: 'John Doe',
-          email: 'john.doe@example.com',
           login: 'johndoe',
-          profileUrl: 'https://example.com/johndoe',
-          createdAt: new Date(),
         },
 
       ];
 
       (axios.get as jest.Mock).mockResolvedValue({ data: mockedUsers });
-  
-      const mockedResponse = mockedUsers.map((user) => ({
-        ...user,
-        createdAt: user.createdAt.toISOString(),
-      }));
-  
+    
       const userController = new UserController();
   
       const res = ({
@@ -63,7 +54,7 @@ describe('App', () => {
   
       expect(response.status).toBe(200);
       expect(response.body).toEqual({
-        rows: mockedResponse,
+        rows: mockedUsers,
         actual_page: 1,
         total_pages: 1,
       });
