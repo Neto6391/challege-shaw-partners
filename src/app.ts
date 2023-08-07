@@ -3,14 +3,15 @@ import UserController from './controllers/UserController';
 
 class App {
   public app: express.Application;
+  userController!: UserController;
 
   constructor() {
     this.app = express();
-    const userController = new UserController();
+    this.userController = new UserController();
 
-    this.app.get('/api/users', userController.getAllUsers.bind(userController));
-    this.app.get('/api/users/:username/details', userController.getUserDetails.bind(userController));
-    this.app.get('/api/users/:username/repos', userController.getUserRepositories.bind(userController));
+    this.app.get('/api/users', this.userController.getAllUsers.bind(this.userController));
+    this.app.get('/api/users/:username/details', this.userController.getUserDetails.bind(this.userController));
+    this.app.get('/api/users/:username/repos', this.userController.getUserRepositories.bind(this.userController));
 
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       res.status(404).json({ error: 'Not Found' });

@@ -19,8 +19,8 @@ describe('UserService', () => {
   it('should return all users', async () => {
     const since = 0;
     const mockedUsersData = [
-      { id: 1, login: 'user1' },
-      { id: 2, login: 'user2' },
+      { id: 1, login: 'user1', createdAt: new Date() },
+      { id: 2, login: 'user2', createdAt: new Date() },
     ];
 
     (axios.get as jest.Mock).mockResolvedValue({ data: mockedUsersData });
@@ -34,7 +34,7 @@ describe('UserService', () => {
 
   it('should return user details', async () => {
     const username = 'john_doe';
-    const mockedUser = { id: 1, name: 'John Doe', email: 'john@example.com' };
+    const mockedUser = { id: 1, name: 'John Doe', email: 'john@example.com', createdAt: new Date() };
 
     (axios.get as jest.Mock).mockResolvedValueOnce({ data: mockedUser });
 

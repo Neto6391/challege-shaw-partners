@@ -33,17 +33,35 @@ describe('UserController', () => {
           email: 'john.doe@example.com',
           login: 'johndoe',
           profileUrl: 'https://example.com/johndoe',
-          createdAt: new Date('2023-08-05T23:56:00.124Z'),
+          createdAt: new Date(),
         }),
       ];
-
+  
+      const mockedUsersResult: { rows: User[], actual_page: number; total_pages: number; } = {
+        rows: [
+          new User({
+            id: 1,
+            name: 'John Doe',
+            email: 'john.doe@example.com',
+            login: 'johndoe',
+            profileUrl: 'https://example.com/johndoe',
+            createdAt: new Date(), // Aqui formatamos para o formato ISO
+          }),
+        ],
+        actual_page: 1,
+        total_pages: 1,
+      };
+  
+      // Mock do método getAllUsers para retornar os usuários simulados
       mockedUserService.getAllUsers.mockResolvedValue(mockedUsers);
-
+  
+      // Simulação da chamada da rota getAllUsers com Request e Response
       await userController.getAllUsers(req as Request, res as Response);
-
+  
+      // Verificações de expectativas do teste
       expect(mockedUserService.getAllUsers).toHaveBeenCalledTimes(1);
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(mockedUsers);
+      expect(res.json).toHaveBeenCalledWith(mockedUsersResult);
     });
   });
 
@@ -57,7 +75,7 @@ describe('UserController', () => {
         profileUrl: 'https://example.com/johndoe',
         createdAt: new Date('2023-08-05T23:56:00.124Z'),
       });
-
+      
       mockedUserService.getUserDetails.mockResolvedValue(mockedUser);
 
       await userController.getUserDetails(req as Request, res as Response);
@@ -74,13 +92,21 @@ describe('UserController', () => {
         new Repository({ id: 1, name: 'john_doe', url: 'desc' }),
       ];
 
+      const mockedUsersResult: { rows: Repository[], actual_page: number; total_pages: number; } = {
+        rows: [
+          new Repository({ id: 1, name: 'john_doe', url: 'desc' }),
+        ],
+        actual_page: 1,
+        total_pages: 1,
+      };
+
       mockedUserService.getUserRepositories.mockResolvedValue(mockedRepos);
 
       await userController.getUserRepositories(req as Request, res as Response);
 
       expect(mockedUserService.getUserRepositories).toHaveBeenCalledWith('john_doe');
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(mockedRepos);
+      expect(res.json).toHaveBeenCalledWith(mockedUsersResult);
     });
   });
 });
