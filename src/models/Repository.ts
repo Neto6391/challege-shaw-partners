@@ -8,6 +8,14 @@ class Repository {
       this.name = data.name;
       this.url = data.html_url;
     }
+
+    public toResponseObject(): any {
+      return {
+        id: this.id,
+        name: this.name,
+        url: this.url,
+      };
+    }
   }
   
   export default Repository;
