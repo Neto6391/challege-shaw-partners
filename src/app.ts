@@ -1,5 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
 import UserController from './controllers/UserController';
+import cors from 'cors';
+
+require('dotenv').config()
 
 class App {
   public app: express.Application;
@@ -7,6 +10,7 @@ class App {
 
   constructor() {
     this.app = express();
+    this.app.use(cors());
 
     this.app.get('/api/users', this.userController.getAllUsers.bind(this.userController));
     this.app.get('/api/users/:username/details', this.userController.getUserDetails.bind(this.userController));
@@ -25,3 +29,4 @@ class App {
 }
 
 export default App;
+
